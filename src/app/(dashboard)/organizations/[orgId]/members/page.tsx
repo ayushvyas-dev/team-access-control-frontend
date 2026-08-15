@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useOrgContext } from '@/providers/OrgProvider';
-import { useMembers } from '@/features/members/hooks/useMembers';
-import { useLeaveOrg } from '@/features/members/hooks/useRemoveMember';
-import { MemberTable } from '@/features/members/components/MemberTable';
-import { EmptyState } from '@/components/shared/EmptyState';
-import { ErrorState } from '@/components/shared/ErrorState';
-import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Button } from '@/components/ui/button';
-import { Users, LogOut } from 'lucide-react';
+import { useState } from "react";
+import { useOrgContext } from "@/providers/OrgProvider";
+import { useMembers } from "@/features/members/hooks/useMembers";
+import { useLeaveOrg } from "@/features/members/hooks/useRemoveMember";
+import { MemberTable } from "@/features/members/components/MemberTable";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { Users, LogOut } from "lucide-react";
 
 export default function MembersPage() {
   const { org } = useOrgContext();
@@ -20,17 +20,17 @@ export default function MembersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-lg font-semibold text-gray-900">Members</h2>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <p className="mt-0.5 text-sm leading-6 text-gray-500">
             Manage who has access to this organization
           </p>
         </div>
         <Button
           variant="outline"
           onClick={() => setShowLeave(true)}
-          className="text-red-600 border-red-200 hover:bg-red-50"
+          className="w-full text-red-600 border-red-200 hover:bg-red-50 sm:w-auto"
         >
           <LogOut className="h-4 w-4 mr-2" />
           Leave organization
@@ -38,7 +38,7 @@ export default function MembersPage() {
       </div>
 
       {isLoading && (
-        <div className="border border-gray-200 rounded-lg p-4 space-y-3">
+        <div className="space-y-3 rounded-lg border border-gray-200 p-4">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="flex items-center gap-3">
               <Skeleton className="h-8 w-8 rounded-full" />
@@ -53,10 +53,7 @@ export default function MembersPage() {
       )}
 
       {error && (
-        <ErrorState
-          message="Failed to load members"
-          retry={() => refetch()}
-        />
+        <ErrorState message="Failed to load members" retry={() => refetch()} />
       )}
 
       {members && members.length === 0 && (

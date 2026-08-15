@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Membership, Role } from '@/types/api';
-import { useUpdateRole } from '@/features/members/hooks/useUpdateRole';
-import { useRemoveMember } from '@/features/members/hooks/useRemoveMember';
-import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Membership } from "@/types/api";
+import { useUpdateRole } from "@/features/members/hooks/useUpdateRole";
+import { useRemoveMember } from "@/features/members/hooks/useRemoveMember";
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, UserMinus } from 'lucide-react';
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal, UserMinus } from "lucide-react";
 
 interface MemberActionsProps {
   membership: Membership;
@@ -59,7 +59,7 @@ export function MemberActions({
             defaultValue={membership.role}
             onValueChange={handleRoleChange}
           >
-            <SelectTrigger className="w-28 h-8 text-xs">
+            <SelectTrigger className="h-8 w-24 text-xs sm:w-28">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

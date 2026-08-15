@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { useParams, useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import { rejectInvitation } from '@/lib/api/invitations';
-import { useAuth } from '@/hooks/useAuth';
-import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { ApiError } from '@/lib/api-client';
-import Link from 'next/link';
+import { useParams, useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { rejectInvitation } from "@/lib/api/invitations";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ApiError } from "@/lib/api-client";
+import Link from "next/link";
 
 export default function RejectInvitationPage() {
   const params = useParams<{ token: string }>();
   const router = useRouter();
   const { isAuthenticated, isLoading: authLoading } = useAuth();
-  const [result, setResult] = useState<'success' | 'error' | null>(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [result, setResult] = useState<"success" | "error" | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const rejectMutation = useMutation({
     mutationFn: () => rejectInvitation(params.token),
-    onSuccess: () => setResult('success'),
+    onSuccess: () => setResult("success"),
     onError: (error: ApiError) => {
-      setResult('error');
-      setErrorMessage(error.message || 'Failed to reject invitation');
+      setResult("error");
+      setErrorMessage(error.message || "Failed to reject invitation");
     },
   });
 
@@ -42,7 +42,7 @@ export default function RejectInvitationPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="w-full max-w-sm px-6 text-center">
+      <div className="w-full max-w-sm px-4 py-8 text-center sm:px-6">
         <div className="flex justify-center mb-6">
           <div className="h-8 w-8 bg-black rounded-md flex items-center justify-center">
             <span className="text-white text-sm font-semibold">T</span>
@@ -51,10 +51,10 @@ export default function RejectInvitationPage() {
 
         {!result && (
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-gray-900 mb-2">
+            <h1 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 sm:text-[1.75rem]">
               Reject invitation
             </h1>
-            <p className="text-sm text-gray-500 mb-6">
+            <p className="mb-6 text-sm leading-6 text-gray-500">
               Are you sure you want to decline this invitation?
             </p>
             <Button
@@ -71,13 +71,13 @@ export default function RejectInvitationPage() {
           </div>
         )}
 
-        {result === 'success' && (
+        {result === "success" && (
           <div>
             <CheckCircle className="h-10 w-10 text-gray-900 mx-auto mb-4" />
-            <h1 className="text-2xl font-semibold tracking-tight text-gray-900 mb-2">
+            <h1 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 sm:text-[1.75rem]">
               Invitation rejected
             </h1>
-            <p className="text-sm text-gray-500 mb-6">
+            <p className="mb-6 text-sm leading-6 text-gray-500">
               You&apos;ve declined the invitation.
             </p>
             <Link href="/dashboard">
@@ -86,13 +86,15 @@ export default function RejectInvitationPage() {
           </div>
         )}
 
-        {result === 'error' && (
+        {result === "error" && (
           <div>
             <XCircle className="h-10 w-10 text-red-400 mx-auto mb-4" />
-            <h1 className="text-2xl font-semibold tracking-tight text-gray-900 mb-2">
+            <h1 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 sm:text-[1.75rem]">
               Something went wrong
             </h1>
-            <p className="text-sm text-gray-500 mb-6">{errorMessage}</p>
+            <p className="mb-6 text-sm leading-6 text-gray-500">
+              {errorMessage}
+            </p>
             <Link href="/dashboard">
               <Button variant="outline" className="w-full">
                 Go to dashboard

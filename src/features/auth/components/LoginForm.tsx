@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema, LoginFormData } from '@/schemas/auth.schemas';
-import { useLogin } from '@/features/auth/hooks/useLogin';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Link from 'next/link';
-import { Loader2 } from 'lucide-react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, LoginFormData } from "@/schemas/auth.schemas";
+import { useLogin } from "@/features/auth/hooks/useLogin";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 export function LoginForm() {
   const {
@@ -26,15 +26,15 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input
           id="email"
           type="email"
           placeholder="you@example.com"
-          {...register('email')}
-          className={errors.email ? 'border-red-400 focus:ring-red-400' : ''}
+          {...register("email")}
+          className={errors.email ? "border-red-400 focus:ring-red-400" : ""}
         />
         {errors.email && (
           <p className="text-xs text-red-600">{errors.email.message}</p>
@@ -47,8 +47,8 @@ export function LoginForm() {
           id="password"
           type="password"
           placeholder="••••••••"
-          {...register('password')}
-          className={errors.password ? 'border-red-400 focus:ring-red-400' : ''}
+          {...register("password")}
+          className={errors.password ? "border-red-400 focus:ring-red-400" : ""}
         />
         {errors.password && (
           <p className="text-xs text-red-600">{errors.password.message}</p>
@@ -58,6 +58,7 @@ export function LoginForm() {
       <Button
         type="submit"
         className="w-full"
+        size="lg"
         disabled={loginMutation.isPending}
       >
         {loginMutation.isPending && (
@@ -66,9 +67,12 @@ export function LoginForm() {
         Sign in
       </Button>
 
-      <p className="text-center text-sm text-gray-500">
-        Don&apos;t have an account?{' '}
-        <Link href="/register" className="text-gray-900 font-medium hover:underline">
+      <p className="text-center text-sm leading-6 text-gray-500">
+        Don&apos;t have an account?{" "}
+        <Link
+          href="/register"
+          className="text-gray-900 font-medium hover:underline"
+        >
           Sign up
         </Link>
       </p>

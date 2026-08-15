@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema, RegisterFormData } from '@/schemas/auth.schemas';
-import { useRegister } from '@/features/auth/hooks/useRegister';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Link from 'next/link';
-import { Loader2 } from 'lucide-react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, RegisterFormData } from "@/schemas/auth.schemas";
+import { useRegister } from "@/features/auth/hooks/useRegister";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 export function RegisterForm() {
   const {
@@ -26,15 +26,15 @@ export function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
       <div className="space-y-2">
         <Label htmlFor="name">Name</Label>
         <Input
           id="name"
           type="text"
           placeholder="John Doe"
-          {...register('name')}
-          className={errors.name ? 'border-red-400 focus:ring-red-400' : ''}
+          {...register("name")}
+          className={errors.name ? "border-red-400 focus:ring-red-400" : ""}
         />
         {errors.name && (
           <p className="text-xs text-red-600">{errors.name.message}</p>
@@ -47,8 +47,8 @@ export function RegisterForm() {
           id="email"
           type="email"
           placeholder="you@example.com"
-          {...register('email')}
-          className={errors.email ? 'border-red-400 focus:ring-red-400' : ''}
+          {...register("email")}
+          className={errors.email ? "border-red-400 focus:ring-red-400" : ""}
         />
         {errors.email && (
           <p className="text-xs text-red-600">{errors.email.message}</p>
@@ -61,8 +61,8 @@ export function RegisterForm() {
           id="password"
           type="password"
           placeholder="••••••••"
-          {...register('password')}
-          className={errors.password ? 'border-red-400 focus:ring-red-400' : ''}
+          {...register("password")}
+          className={errors.password ? "border-red-400 focus:ring-red-400" : ""}
         />
         {errors.password && (
           <p className="text-xs text-red-600">{errors.password.message}</p>
@@ -72,6 +72,7 @@ export function RegisterForm() {
       <Button
         type="submit"
         className="w-full"
+        size="lg"
         disabled={registerMutation.isPending}
       >
         {registerMutation.isPending && (
@@ -80,9 +81,12 @@ export function RegisterForm() {
         Create account
       </Button>
 
-      <p className="text-center text-sm text-gray-500">
-        Already have an account?{' '}
-        <Link href="/login" className="text-gray-900 font-medium hover:underline">
+      <p className="text-center text-sm leading-6 text-gray-500">
+        Already have an account?{" "}
+        <Link
+          href="/login"
+          className="text-gray-900 font-medium hover:underline"
+        >
           Sign in
         </Link>
       </p>

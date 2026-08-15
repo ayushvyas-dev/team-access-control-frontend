@@ -1,17 +1,21 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { PageLoader } from '@/components/shared/LoadingSpinner';
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { PageLoader } from "@/components/shared/LoadingSpinner";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      router.replace('/dashboard');
+      router.replace("/dashboard");
     }
   }, [isAuthenticated, isLoading, router]);
 
@@ -29,13 +33,15 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="w-full max-w-sm px-6">
-        <div className="flex justify-center mb-8">
+      <div className="w-full max-w-sm px-4 py-8 sm:px-6">
+        <div className="mb-6 flex justify-center sm:mb-8">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 bg-black rounded-md flex items-center justify-center">
               <span className="text-white text-sm font-semibold">T</span>
             </div>
-            <span className="font-semibold text-gray-900">TeamAccess</span>
+            <span className="text-sm font-semibold text-gray-900 sm:text-base">
+              TeamAccess
+            </span>
           </div>
         </div>
         {children}

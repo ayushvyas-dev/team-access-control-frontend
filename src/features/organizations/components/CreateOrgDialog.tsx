@@ -1,13 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { organizationSchema, OrganizationFormData } from '@/schemas/organization.schemas';
-import { useCreateOrg } from '@/features/organizations/hooks/useCreateOrg';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  organizationSchema,
+  OrganizationFormData,
+} from "@/schemas/organization.schemas";
+import { useCreateOrg } from "@/features/organizations/hooks/useCreateOrg";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -15,8 +18,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Plus, Loader2 } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Plus, Loader2 } from "lucide-react";
 
 export function CreateOrgDialog() {
   const [open, setOpen] = useState(false);
@@ -44,7 +47,7 @@ export function CreateOrgDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
-          <Button>
+          <Button className="w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Create organization
           </Button>
@@ -57,28 +60,36 @@ export function CreateOrgDialog() {
             Create a new organization to start collaborating with your team.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mt-2 space-y-4 sm:space-y-5"
+        >
           <div className="space-y-2">
             <Label htmlFor="org-name">Organization name</Label>
             <Input
               id="org-name"
               placeholder="My Organization"
-              {...register('name')}
-              className={errors.name ? 'border-red-400 focus:ring-red-400' : ''}
+              {...register("name")}
+              className={errors.name ? "border-red-400 focus:ring-red-400" : ""}
             />
             {errors.name && (
               <p className="text-xs text-red-600">{errors.name.message}</p>
             )}
           </div>
-          <div className="flex justify-end gap-2">
+          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <Button
               type="button"
               variant="outline"
+              className="w-full sm:w-auto"
               onClick={() => setOpen(false)}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={createOrg.isPending}>
+            <Button
+              type="submit"
+              disabled={createOrg.isPending}
+              className="w-full sm:w-auto"
+            >
               {createOrg.isPending && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { Membership } from '@/types/api';
-import { MemberRoleBadge } from './MemberRoleBadge';
-import { MemberActions } from './MemberActions';
-import { useAuth } from '@/hooks/useAuth';
-import { usePermission } from '@/hooks/usePermission';
+import { Membership } from "@/types/api";
+import { MemberRoleBadge } from "./MemberRoleBadge";
+import { MemberActions } from "./MemberActions";
+import { useAuth } from "@/hooks/useAuth";
+import { usePermission } from "@/hooks/usePermission";
 import {
   Table,
   TableBody,
@@ -12,8 +12,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { formatDate } from '@/lib/utils';
+} from "@/components/ui/table";
+import { formatDate } from "@/lib/utils";
 
 interface MemberTableProps {
   members: Membership[];
@@ -22,12 +22,12 @@ interface MemberTableProps {
 
 export function MemberTable({ members, orgId }: MemberTableProps) {
   const { user } = useAuth();
-  const canUpdateRole = usePermission('member:update-role');
-  const canRemove = usePermission('member:remove');
+  const canUpdateRole = usePermission("member:update-role");
+  const canRemove = usePermission("member:remove");
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
-      <Table>
+    <div className="overflow-hidden rounded-lg border border-gray-200">
+      <Table className="min-w-[640px]">
         <TableHeader>
           <TableRow className="hover:bg-transparent">
             <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -36,7 +36,7 @@ export function MemberTable({ members, orgId }: MemberTableProps) {
             <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide">
               Role
             </TableHead>
-            <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+            <TableHead className="hidden text-xs font-medium uppercase tracking-wide text-gray-500 sm:table-cell">
               Joined
             </TableHead>
             <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide text-right">
@@ -56,11 +56,11 @@ export function MemberTable({ members, orgId }: MemberTableProps) {
                         {member.userId.slice(0, 2).toUpperCase()}
                       </span>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm font-medium text-gray-900">
-                        {isSelf ? 'You' : `User`}
+                        {isSelf ? "You" : `User`}
                       </p>
-                      <p className="text-xs text-gray-400 font-mono">
+                      <p className="max-w-[10rem] truncate text-xs font-mono text-gray-400">
                         {member.userId.slice(0, 8)}...
                       </p>
                     </div>
@@ -69,7 +69,7 @@ export function MemberTable({ members, orgId }: MemberTableProps) {
                 <TableCell>
                   <MemberRoleBadge role={member.role} />
                 </TableCell>
-                <TableCell className="text-sm text-gray-500">
+                <TableCell className="hidden text-sm text-gray-500 sm:table-cell">
                   {formatDate(member.createdAt)}
                 </TableCell>
                 <TableCell className="text-right">

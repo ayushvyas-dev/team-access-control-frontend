@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Invitation } from '@/types/api';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteInvitation } from '@/lib/api/invitations';
-import { MemberRoleBadge } from '@/features/members/components/MemberRoleBadge';
-import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Invitation } from "@/types/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteInvitation } from "@/lib/api/invitations";
+import { MemberRoleBadge } from "@/features/members/components/MemberRoleBadge";
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -14,11 +14,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { formatDate } from '@/lib/utils';
-import { X } from 'lucide-react';
-import { toast } from 'sonner';
-import { ApiError } from '@/lib/api-client';
+} from "@/components/ui/table";
+import { formatDate } from "@/lib/utils";
+import { X } from "lucide-react";
+import { toast } from "sonner";
+import { ApiError } from "@/lib/api-client";
 
 interface InvitationTableProps {
   invitations: Invitation[];
@@ -32,21 +32,21 @@ export function InvitationTable({ invitations, orgId }: InvitationTableProps) {
   const revokeMutation = useMutation({
     mutationFn: (invitationId: string) => deleteInvitation(orgId, invitationId),
     onSuccess: () => {
-      toast.success('Invitation revoked');
+      toast.success("Invitation revoked");
       queryClient.invalidateQueries({
-        queryKey: ['organizations', orgId, 'invitations'],
+        queryKey: ["organizations", orgId, "invitations"],
       });
       setRevokeId(null);
     },
     onError: (error: ApiError) => {
-      toast.error(error.message || 'Failed to revoke invitation');
+      toast.error(error.message || "Failed to revoke invitation");
     },
   });
 
   return (
     <>
-      <div className="border border-gray-200 rounded-lg overflow-hidden">
-        <Table>
+      <div className="overflow-hidden rounded-lg border border-gray-200">
+        <Table className="min-w-[700px]">
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -55,7 +55,7 @@ export function InvitationTable({ invitations, orgId }: InvitationTableProps) {
               <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide">
                 Role
               </TableHead>
-              <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+              <TableHead className="hidden text-xs font-medium uppercase tracking-wide text-gray-500 sm:table-cell">
                 Status
               </TableHead>
               <TableHead className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -75,7 +75,7 @@ export function InvitationTable({ invitations, orgId }: InvitationTableProps) {
                 <TableCell>
                   <MemberRoleBadge role={invite.role} />
                 </TableCell>
-                <TableCell className="text-sm text-gray-500">
+                <TableCell className="hidden text-sm text-gray-500 sm:table-cell">
                   Pending
                 </TableCell>
                 <TableCell className="text-sm text-gray-500">

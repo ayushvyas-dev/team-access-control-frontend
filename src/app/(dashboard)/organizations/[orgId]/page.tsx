@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useOrgContext } from '@/providers/OrgProvider';
-import { usePermission } from '@/hooks/usePermission';
-import { OrgForm } from '@/features/organizations/components/OrgForm';
-import { OrgDeleteDialog } from '@/features/organizations/components/OrgDeleteDialog';
-import { Separator } from '@/components/ui/separator';
-import { formatDate } from '@/lib/utils';
+import { useOrgContext } from "@/providers/OrgProvider";
+import { usePermission } from "@/hooks/usePermission";
+import { OrgForm } from "@/features/organizations/components/OrgForm";
+import { OrgDeleteDialog } from "@/features/organizations/components/OrgDeleteDialog";
+import { Separator } from "@/components/ui/separator";
+import { formatDate } from "@/lib/utils";
 
 export default function OrgDetailPage() {
   const { org, role } = useOrgContext();
-  const canUpdate = usePermission('organization:update');
-  const canDelete = usePermission('organization:delete');
+  const canUpdate = usePermission("organization:update");
+  const canDelete = usePermission("organization:delete");
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Org Info */}
-      <div className="border border-gray-200 rounded-lg p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="rounded-lg border border-gray-200 p-5 sm:p-6">
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">
           Organization details
         </h2>
-        <div className="grid grid-cols-2 gap-4 text-sm">
+        <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
           <div>
             <span className="text-gray-500">Name</span>
             <p className="text-gray-900 font-medium mt-0.5">{org.name}</p>
@@ -41,8 +41,8 @@ export default function OrgDetailPage() {
 
       {/* Edit Org (OWNER only) */}
       {canUpdate && (
-        <div className="border border-gray-200 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="rounded-lg border border-gray-200 p-5 sm:p-6">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Update organization
           </h2>
           <OrgForm orgId={org.id} currentName={org.name} />
@@ -53,11 +53,11 @@ export default function OrgDetailPage() {
       {canDelete && (
         <>
           <Separator />
-          <div className="border border-red-200 rounded-lg p-6">
-            <h2 className="text-lg font-semibold text-red-600 mb-2">
+          <div className="rounded-lg border border-red-200 p-5 sm:p-6">
+            <h2 className="mb-2 text-lg font-semibold text-red-600">
               Danger zone
             </h2>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="mb-4 text-sm leading-6 text-gray-500">
               Permanently delete this organization and all of its data. This
               action cannot be undone.
             </p>

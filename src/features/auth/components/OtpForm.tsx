@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { verifyEmailSchema, VerifyEmailFormData } from '@/schemas/auth.schemas';
-import { useVerifyEmail } from '@/features/auth/hooks/useVerifyEmail';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Loader2 } from 'lucide-react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { verifyEmailSchema, VerifyEmailFormData } from "@/schemas/auth.schemas";
+import { useVerifyEmail } from "@/features/auth/hooks/useVerifyEmail";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 
 interface OtpFormProps {
   defaultEmail?: string;
@@ -21,7 +21,7 @@ export function OtpForm({ defaultEmail }: OtpFormProps) {
   } = useForm<VerifyEmailFormData>({
     resolver: zodResolver(verifyEmailSchema),
     defaultValues: {
-      email: defaultEmail || '',
+      email: defaultEmail || "",
     },
   });
 
@@ -32,15 +32,15 @@ export function OtpForm({ defaultEmail }: OtpFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input
           id="email"
           type="email"
           placeholder="you@example.com"
-          {...register('email')}
-          className={errors.email ? 'border-red-400 focus:ring-red-400' : ''}
+          {...register("email")}
+          className={errors.email ? "border-red-400 focus:ring-red-400" : ""}
           readOnly={!!defaultEmail}
         />
         {errors.email && (
@@ -55,13 +55,13 @@ export function OtpForm({ defaultEmail }: OtpFormProps) {
           type="text"
           placeholder="123456"
           maxLength={6}
-          {...register('otp')}
-          className={errors.otp ? 'border-red-400 focus:ring-red-400' : ''}
+          {...register("otp")}
+          className={errors.otp ? "border-red-400 focus:ring-red-400" : ""}
         />
         {errors.otp && (
           <p className="text-xs text-red-600">{errors.otp.message}</p>
         )}
-        <p className="text-xs text-gray-400">
+        <p className="text-xs leading-5 text-gray-400">
           Enter the 6-digit code sent to your email
         </p>
       </div>
@@ -69,6 +69,7 @@ export function OtpForm({ defaultEmail }: OtpFormProps) {
       <Button
         type="submit"
         className="w-full"
+        size="lg"
         disabled={verifyMutation.isPending}
       >
         {verifyMutation.isPending && (
