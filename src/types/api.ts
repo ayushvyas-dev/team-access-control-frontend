@@ -15,7 +15,7 @@ export type Organization = {
   updatedAt: string;
 };
 
-export type Role = 'OWNER' | 'ADMIN' | 'MEMBER';
+export type Role = "OWNER" | "ADMIN" | "MEMBER";
 
 export type Membership = {
   id: string;
@@ -25,7 +25,7 @@ export type Membership = {
   createdAt: string;
 };
 
-export type InvitationStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'EXPIRED';
+export type InvitationStatus = "PENDING" | "ACCEPTED" | "REJECTED" | "EXPIRED";
 
 export type Invitation = {
   id: string;
@@ -34,6 +34,33 @@ export type Invitation = {
   expiresAt: string;
   createdAt: string;
   invitationUrl?: string;
+};
+
+export type PendingInvitation = {
+  id: string;
+  email?: string;
+  invitedEmail?: string;
+  role: Role;
+  status?: InvitationStatus;
+  expiresAt: string;
+  createdAt: string;
+  organization?: {
+    id: string;
+    name: string;
+    slug?: string;
+  } | null;
+  team?: {
+    id: string;
+    name: string;
+    slug?: string;
+  } | null;
+  organizationName?: string;
+  teamName?: string;
+};
+
+export type PendingInvitationsResponse = {
+  success: boolean;
+  invitations: PendingInvitation[];
 };
 
 export type Session = {

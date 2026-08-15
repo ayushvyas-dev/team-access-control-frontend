@@ -9,6 +9,7 @@ import {
   Shield,
   AlertTriangle,
   LogOut,
+  Mail,
   X,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -20,6 +21,11 @@ const mainNav = [
     label: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    label: "Invitations",
+    href: "/invitations",
+    icon: Mail,
   },
 ];
 

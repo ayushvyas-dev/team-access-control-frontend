@@ -6,6 +6,7 @@ import { CreateOrgDialog } from "@/features/organizations/components/CreateOrgDi
 import { EmptyState } from "@/components/shared/EmptyState";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PendingInvitationsSection } from "@/features/invitations/components/PendingInvitationsSection";
 import { Building2 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -62,6 +63,8 @@ export default function DashboardPage() {
           ))}
         </div>
       )}
+
+      <PendingInvitationsSection />
     </div>
   );
 }
