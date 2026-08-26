@@ -41,8 +41,8 @@ const settingsNav = [
     icon: Shield,
   },
   {
-    label: "Danger Zone",
-    href: "/settings/danger",
+    label: "Account Settings",
+    href: "/settings/account",
     icon: AlertTriangle,
   },
 ];
@@ -150,14 +150,14 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                   className={cn(
                     "h-4 w-4",
                     isActive ? "text-gray-900" : "text-gray-400",
-                    item.href === "/settings/danger" && isActive
+                    item.href === "/settings/account" && isActive
                       ? "text-red-600"
                       : "",
                   )}
                 />
                 <span
                   className={cn(
-                    item.href === "/settings/danger" && isActive
+                    item.href === "/settings/account" && isActive
                       ? "text-red-600"
                       : "",
                   )}
