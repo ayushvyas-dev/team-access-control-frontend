@@ -73,6 +73,46 @@ export type Session = {
   revokedAt: string | null;
 };
 
+export type AuditAction =
+  | 'MEMBER_INVITED'
+  | 'MEMBER_JOINED'
+  | 'MEMBER_REMOVED'
+  | 'MEMBER_LEFT'
+  | 'ROLE_CHANGED'
+  | 'INVITATION_REJECTED'
+  | 'INVITATION_REVOKED'
+  | 'ORGANIZATION_UPDATED';
+
+export type AuditResourceType = 'ORGANIZATION' | 'MEMBERSHIP' | 'INVITATION';
+
+export type AuditLog = {
+  id: string;
+  organizationId: string;
+  actorId: string;
+  action: AuditAction;
+  resourceType: AuditResourceType;
+  resourceId: string;
+  metadata: Record<string, unknown> | null;
+  createdAt: string;
+  actor?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+};
+
+export type PaginatedResponse<T> = {
+  success: boolean;
+  message: string;
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+};
+
 export type ApiResponse<T> = {
   success: boolean;
   message: string;

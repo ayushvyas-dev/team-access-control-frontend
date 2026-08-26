@@ -11,7 +11,7 @@ import { ErrorState } from "@/components/shared/ErrorState";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Settings, Users, Mail } from "lucide-react";
+import { Settings, Users, Mail, ScrollText } from "lucide-react";
 import { rolePermissions } from "@/types/permissions";
 
 export default function OrgLayout({ children }: { children: React.ReactNode }) {
@@ -63,6 +63,8 @@ export default function OrgLayout({ children }: { children: React.ReactNode }) {
 
   const canReadInvitations =
     rolePermissions[currentMembership.role].includes("invitation:read");
+  const canReadAuditLogs =
+    rolePermissions[currentMembership.role].includes("audit-log:read");
 
   const orgNav = [
     { label: "Overview", href: `/organizations/${orgId}`, icon: Settings },
@@ -73,6 +75,15 @@ export default function OrgLayout({ children }: { children: React.ReactNode }) {
             label: "Invitations",
             href: `/organizations/${orgId}/invitations`,
             icon: Mail,
+          },
+        ]
+      : []),
+    ...(canReadAuditLogs
+      ? [
+          {
+            label: "Audit Logs",
+            href: `/organizations/${orgId}/audit-logs`,
+            icon: ScrollText,
           },
         ]
       : []),

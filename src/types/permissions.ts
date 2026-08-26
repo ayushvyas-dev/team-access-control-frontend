@@ -9,7 +9,8 @@ export type Permission =
   | 'member:remove'
   | 'invitation:read'
   | 'invitation:create'
-  | 'invitation:delete';
+  | 'invitation:delete'
+  | 'audit-log:read';
 
 export const rolePermissions: Record<Role, Permission[]> = {
   OWNER: [
@@ -22,6 +23,7 @@ export const rolePermissions: Record<Role, Permission[]> = {
     'invitation:read',
     'invitation:create',
     'invitation:delete',
+    'audit-log:read',
   ],
   ADMIN: [
     'organization:read',
@@ -31,6 +33,7 @@ export const rolePermissions: Record<Role, Permission[]> = {
     'invitation:read',
     'invitation:create',
     'invitation:delete',
+    'audit-log:read',
   ],
   MEMBER: ['organization:read', 'member:read'],
 };
