@@ -23,7 +23,9 @@ function generateBreadcrumbs(pathname: string) {
       ? "Overview"
       : segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
 
-    breadcrumbs.push({ label, href: currentPath });
+    const href = segment === "organizations" ? "/dashboard" : currentPath;
+
+    breadcrumbs.push({ label, href });
   }
 
   return breadcrumbs;
