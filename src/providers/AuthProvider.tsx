@@ -1,10 +1,17 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { revokeAllSessions } from '@/lib/api/sessions';
 import { useRouter } from 'next/navigation';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+
+const LOGGED_OUT_KEY = 'logged_out';
+
+export function clearLoggedOutFlag() {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(LOGGED_OUT_KEY);
+  }
+}
 
 type AuthUser = {
   id: string;
@@ -61,6 +68,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const init = async () => {
+      if (typeof window !== 'undefined' && localStorage.getItem(LOGGED_OUT_KEY)) {
+        setUser(null);
+        setIsLoading(false);
+        return;
+      }
       const me = await fetchMe();
       setUser(me);
       setIsLoading(false);
@@ -69,8 +81,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(LOGGED_OUT_KEY, '1');
+    }
     try {
-      await revokeAllSessions();
+      await fetch(`${BASE_URL}/sessions`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
     } catch {
       // Continue with local cleanup even if server call fails
     }

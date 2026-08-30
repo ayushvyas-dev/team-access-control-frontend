@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { ApiError } from '@/lib/api-client';
+import { clearLoggedOutFlag } from '@/providers/AuthProvider';
 
 export function useLogin() {
   const { setUser } = useAuth();
@@ -14,6 +15,7 @@ export function useLogin() {
   return useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
+      clearLoggedOutFlag();
       setUser({ id: data.user.id, email: data.user.email });
       toast.success('Logged in successfully');
       router.push('/dashboard');
